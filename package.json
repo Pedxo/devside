@@ -1,0 +1,15 @@
+{
+  "name": "pedxo-dev-form",
+  "version": "1.0.0",
+  "description": "developer form for pedxo",
+  "main": "js/index.js",
+  "scripts": {
+    "start": "node js/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "codewithjoxeph@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.8.2"
+  }
+}
