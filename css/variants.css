@@ -1,7 +1,7 @@
 :root{
-    --primary:
-    --secondary:
-    --error:
-    --success:
-    --background-color: #000
+    --background: powderblue;
+    --primary: #00f400;
+    --secondary: #565;
+    --error: #ff2l
+    --success: #5322;
 }
