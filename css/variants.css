@@ -1,7 +1,12 @@
 :root{
     --background: powderblue;
-    --primary: #00f400;
+    --brandGrey: gray;
+    --lightGrey: rgba(128, 128, 128, 0.135);
+    --primary: rgb(16, 166, 230);
     --secondary: #565;
-    --error: #ff2l
+    --error: rgb(227, 27, 27);
+    --Black: #212121;
     --success: #5322;
-}
+    --boxShadow: 0 4px 8px rgba(0, 0, 0, 0.1), 
+    0 2px 4px rgba(0, 0, 0, 0.06);
+}   
