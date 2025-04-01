@@ -1,1 +1,1 @@
-# devside
+🤖 developer side of our project. (Part of Pedxo component) 
