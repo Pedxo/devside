@@ -5,10 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+
     <!-- Title -->
     <title>Pedxo | Apply to be a developer</title>
 
@@ -27,8 +24,84 @@
   </head>
   <body>
     <div class="wrapper">
-       
+      <header>
+        <h1 class="heading-1">Pedxo Developer Form</h1>
+        <p class="paragraph-text">
+          Fill in the form below to complete your application to be a pedxo
+          developer.
+        </p>
+      </header>
+
+      <form id="developer-form">
+        <div class="custom-input">
+          <label for="firstname">First Name <span>*</span></label>
+          <input
+            type="text"
+            name="firstname"
+            placeholder="Enter first name..."
+            required
+          />
+        </div>
+        <div class="custom-input">
+          <label for="lastname">Last Name <span>*</span></label>
+          <input type="text" name="lastname" placeholder="Enter last name..." required />
+        </div>
+        <div class="custom-input">
+          <label for="email">Email address <span>*</span></label>
+          <input type="email" name="email" placeholder="Enter email address" required/>
+        </div>
+        <div class="custom-input">
+          <label for="role">Role title <span>*</span></label>
+          <input type="text" name="role" placeholder="Enter your role..." required/>
+        </div>
+        <div class="custom-input">
+          <label for="country">Country <span>*</span></label>
+          <select name="country" id="country-select" required>
+            <option value="">Select Country</option>
+          </select>
+        </div>
+        <div class="custom-input">
+          <label for="state">State <span>*</span></label>
+          <select name="state" id="state-select" required></select>
+        </div>
+        <div class="custom-input">
+          <label for="city">City <span>*</span></label>
+          <select name="city" id="city-select" required></select>
+        </div>
+        <div class="custom-input">
+          <label for="gender">Gender <span>*</span></label>
+          <select name="gender" id="gender-select" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <div class="custom-input">
+          <label for="bank">Bank Name<span>*</span></label>
+          <input type="text" name="bank" placeholder="Enter bank name" required />
+        </div>
+        <div class="custom-input">
+          <label for="accountNumber">Account Number<span>*</span></label>
+          <input
+            type="text"
+            pattern="\d{10}"
+            maxlength="10"
+            name="accountNumber"
+            placeholder="Enter 10 digit account number"
+            required
+          />
+        </div>
+        <div class="custom-input">
+          <label for="dob">Date of Birth<span>*</span></label>
+          <input type="date" id="dob" name="dob" required />
+        </div>
+        <button id="btn-submit" class="btn btn-submit">Submit</button>
+      </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="./js/api.js">
+      import axios from "axios"
+    </script>
     <script src="js/index.js"></script>
+    <script src="js/config.js"></script>
   </body>
 </html>

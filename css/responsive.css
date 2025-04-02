@@ -1,6 +1,22 @@
 /* Mobile Phones */
-@media screen and (max-width:767px){}
+@media screen and (max-width: 767px) {
+  form {
+    display: flex;
+    gap: 2em;
+    flex-direction: column;
+  }
+}
 /* Tablets */
-@media  screen and (min-width:767px) and (max-width:1023px) {}
+@media screen and (min-width: 767px) and (max-width: 1023px) {
+}
 /* Desktop and Laptops */
-@media  screen and  (min-width:1024px){}
+@media screen and (min-width: 1024px) {
+  form {
+    display: grid;
+    gap: 2em;
+    width: 100%;
+    max-width: 80%;
+    align-items: center;
+    grid-template-columns: repeat(2, auto);
+  }
+}
