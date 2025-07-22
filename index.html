@@ -97,6 +97,41 @@
         </div>
 
 
+        <div class="custom-input">
+          <label for="experience">Experience Level <span>*</span></label>
+          <select name="experience" id="experience" required>
+            <option value="">Select your experience level</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Senior">Senior</option>
+          </select>
+        </div>
+
+        <div class="custom-input">
+          <label for="whatsapp">WhatsApp Number <span>*</span></label>
+          <div style="display: flex; gap: 0.5rem;">
+            <input
+              type="text"
+              name="countryCode"
+              placeholder="+234"
+              pattern="^\+\d{1,4}$"
+              required
+              style="width: 80px;"
+              title="Include country code e.g. +234"
+            />
+            <input
+              type="tel"
+              name="whatsapp"
+              placeholder="Enter WhatsApp number"
+              pattern="\d{6,15}"
+              required
+              title="Enter a valid phone number"
+              style="flex: 1;"
+            />
+          </div>
+        </div>
+
+
 
         <div class="custom-input">
           <label for="country">Country <span>*</span></label>
@@ -104,6 +139,8 @@
             <option value="">Select Country</option>
           </select>
         </div>
+
+
         <div class="custom-input">
           <label for="state">State <span>*</span></label>
           <select name="state" id="state-select" required></select>

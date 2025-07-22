@@ -71,6 +71,7 @@ handleStateChange();
     "engineer",
     "coder",
     "annotation",
+    "data"
   ];
 
   const designerKeywords = [
