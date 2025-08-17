@@ -187,7 +187,23 @@ function getFormData(form) {
 
 
 
+// showDateModal();
+// checkInputDisability();
+// handleCountryChange();
+// handleStateChange();
+// handleFormSubmit();
+
+
 document.addEventListener("DOMContentLoaded", () => {
+  showDateModal();
+  checkInputDisability();
+  handleCountryChange();
+  handleStateChange();
+  handleFormSubmit();
+});
+
+
+addEventListener("DOMContentLoaded", () => {
   showDateModal();
   checkInputDisability();
   handleCountryChange();
