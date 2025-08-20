@@ -52,9 +52,9 @@ function showDateModal() {
 //  Role selection logic for GitHub and portfolio inputs
 // This code dynamically adjusts the required fields based on the selected role
   const roleSelect = document.getElementById("role-select");
-  const githubInput = document.getElementById("github");
+  const githubInput = document.getElementById("githubAccount");
   const portfolioInput = document.getElementById("portfolio");
-  const githubRequiredText = document.getElementById("github-required");
+  const githubRequiredText = document.getElementById("githubAccount-required");
 
   const engineerKeywords = [
     "developer",
@@ -93,30 +93,10 @@ function showDateModal() {
 
 
 
-function handleFormSubmit() {
-  const form = document.getElementById("developer-form");
-  if (!form) {
-    console.error("Form not found");
-    return;
-  }
 
-  form.addEventListener("click", (e) => {
-    e.preventDefault();
-        console.log("Form submitted");
+const form = document.getElementById("developer-form");
+console.log("Form found:", form);
 
-    const requiredFields = getRequiredFields(form);
-    const isValid = validateFields(requiredFields);
-
-    if (isValid) {
-      const data = getFormData(form);
-      console.log("Submitted Form Data:", data);
-    //   form.submit(); or axios.post(...)
-    } else {
-      console.warn("Form validation failed.");
-    }
-   
-  });
-}
 
 function getRequiredFields(form) {
   return Array.from(form.querySelectorAll("label > span"))
@@ -134,6 +114,7 @@ function getRequiredFields(form) {
 
 function validateFields(fields) {
   let allValid = true;
+  let firstInvalidInput = null;
 
   fields.forEach(({ input, errorEl, name }) => {
     if (!input || !errorEl) return;
@@ -146,33 +127,110 @@ function validateFields(fields) {
     if (!value) {
       errorEl.textContent = "This field is required.";
       input.classList.add("error");
-       if (name === "whatsapp") flagWrapper?.classList.add("error-border");
+       if (name === "whatsappNumber") flagWrapper?.classList.add("error-border");
+       if (!firstInvalidInput) firstInvalidInput = input;
       allValid = false;
     } else if (input.type === "email" && !/^\S+@\S+\.\S+$/.test(value)) {
         errorEl.textContent = "Please enter a valid email address.";
         input.classList.add("error");
+        if (!firstInvalidInput) firstInvalidInput = input;
         allValid = false;
     } else if (input.type === "url" && !/^https?:\/\/.+\..+/.test(value)) {
         errorEl.textContent = "Please enter a valid URL.";
         input.classList.add("error");
+        if (!firstInvalidInput) firstInvalidInput = input;
         allValid = false;
     } else if (input.type === "tel" && !/^\+[\d()]{7,20}$/.test(value)) {
         errorEl.textContent = "Please enter a valid phone number.";
         input.classList.add("error");
+        if (!firstInvalidInput) firstInvalidInput = input;
         allValid = false;
     } else if (name === "accountNumber" && !/^\d{10}$/.test(value)) {
         errorEl.textContent = "Account number must be exactly 10 digits.";
         input.classList.add("error");
+        if (!firstInvalidInput) firstInvalidInput = input;
       allValid = false;
     }
     else {
       // Clear WhatsApp flag border if valid
-      if (name === "whatsapp") flagWrapper?.classList.remove("error-border");
+      if (name === "whatsappNumber") flagWrapper?.classList.remove("error-border");
+       input.classList.remove("error");
     }
   });
 
+
+  // Focus on the first invalid input if any
+  if (firstInvalidInput) {
+    firstInvalidInput.focus();
+  }
+
   return allValid;
 }
+
+
+
+form.addEventListener("submit",async (e) => {
+  e.preventDefault();
+
+  console.log("submit");
+  
+
+  const requiredFields = getRequiredFields(form);
+  const isValid = validateFields(requiredFields);
+    console.log(isValid);
+
+ if (isValid) {
+  const data = getFormData(form);
+  const btn = document.getElementById("btn-submit");
+  const messageEl = document.getElementById("success-message");
+
+  try {
+    // Show loading state
+    btn.disabled = true;
+    btn.innerHTML = `<span class="spinner"></span> Submitting...`;
+
+    const res = await fetch("https://pedxo-back-project.onrender.com/talent/details", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    let result;
+    try {
+      result = await res.json();
+    } catch {
+      result = null;
+    }
+
+    if (res.ok) {
+      //  Success
+      console.log("Submitted Form Data:", data);
+      messageEl.textContent = "Form submitted successfully!";
+      messageEl.style.color = "green";
+      form.reset();
+    } else {
+      //  Server error
+      console.error("Error response:", result);
+      alert(result?.message || "Something went wrong. Please try again.");
+      messageEl.textContent = result?.message || "Something went wrong. Please try again.";
+      messageEl.style.color = "red";
+    }
+  } catch (error) {
+    //  Network error
+    console.error("Error submitting form:", error);
+    messageEl.textContent = "Network error. Please check your connection.";
+    messageEl.style.color = "red";
+  } finally {
+    // Reset button state
+    btn.disabled = false;
+    btn.innerHTML = "Submit";
+  }
+} else {
+  console.warn("Form validation failed.");
+}
+
+});
+
 
 function getFormData(form) {
   const formData = new FormData(form);
@@ -183,7 +241,14 @@ function getFormData(form) {
   return data;
 }
 
+// function handleFormSubmit() {
+//   const form = document.getElementById("developer-form");
+//   if (!form) {
+//     console.error("Form not found");
+//     return;
+//   }
 
+// }
 
 
 
@@ -195,20 +260,20 @@ function getFormData(form) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  showDateModal();
+  // showDateModal();
   checkInputDisability();
   handleCountryChange();
   handleStateChange();
-  handleFormSubmit();
+  // handleFormSubmit();
 });
 
 
-addEventListener("DOMContentLoaded", () => {
-  showDateModal();
-  checkInputDisability();
-  handleCountryChange();
-  handleStateChange();
-  handleFormSubmit();
-});
+// addEventListener("DOMContentLoaded", () => {
+//   showDateModal();
+//   checkInputDisability();
+//   handleCountryChange();
+//   handleStateChange();
+//   handleFormSubmit();
+// });
 
 

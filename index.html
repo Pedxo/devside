@@ -35,24 +35,24 @@
         </p>
       </header>
 
-      <form id="developer-form">
+      <form id="developer-form" novalidate>
 
         <div class="custom-input">
-          <label for="firstname">First Name <span>*</span></label>
+          <label for="firstName">First Name <span>*</span></label>
           <input
             type="text"
-            name="firstname"
+            name="firstName"
             placeholder="Enter first name..."
             required
-            id="firstname"
+            id="firstName"
           />
-          <span class="error-message" id="firstname-error"></span>
+          <span class="error-message" id="firstName-error"></span>
         </div>
 
         <div class="custom-input">
-          <label for="lastname">Last Name <span>*</span></label>
-          <input type="text" name="lastname" id="lastname" placeholder="Enter last name..." required />
-           <span class="error-message" id="lastname-error"></span>
+          <label for="lastName">Last Name <span>*</span></label>
+          <input type="text" name="lastName" id="lastName" placeholder="Enter last name..." required />
+           <span class="error-message" id="lastName-error"></span>
         </div>
 
         <!-- email -->
@@ -65,7 +65,7 @@
         <!-- role  -->
       <div class="custom-input">
       <label for="role">Role title <span>*</span></label>
-      <select name="role" id="role-select" required>
+      <select name="roleTitle" id="role-select" required>
         <option value="">Select your role</option>
         <option value="Data annotator">Data annotator</option>
         <option value="UI/UX designer">UI/UX designer</option>
@@ -89,45 +89,45 @@
 
       <!-- github -->
       <div class="custom-input">
-          <label for="github">GitHub Account <span id="github-required"></span></label>
+          <label for="githubAccount">GitHub Account <span id="githubAccount-required"></span></label>
           <input
             type="url"
-            name="github"
-            id="github"
+            name="githubAccount"
+            id="githubAccount"
             placeholder="Enter your GitHub profile link"
           />
-          <span class="error-message" id="github-error"></span>
+          <span class="error-message" id="githubAccount-error"></span>
         </div>
 
         <!-- portfolio -->
         <div class="custom-input">
-          <label for="portfolio">Portfolio Link <span>*</span></label>
+          <label for="portfolioLink">Portfolio Link <span>*</span></label>
           <input
             type="url"
-            name="portfolio"
-            id="portfolio"
+            name="portfolioLink"
+            id="portfolioLink"
             placeholder="Drop link to your portfolio or a project you're proud of"
             required
           />
-          <span class="error-message" id="portfolio-error"></span>
+          <span class="error-message" id="portfolioLink-error"></span>
         </div>
 
         <!-- experience -->
         <div class="custom-input">
-          <label for="experience">Experience Level <span>*</span></label>
-          <select name="experience" id="experience" required>
+          <label for="experienceLevel">Experience Level <span>*</span></label>
+          <select name="experienceLevel" id="experienceLevel" required>
             <option value="">Select your experience level</option>
             <option value="Beginner">Beginner</option>
             <option value="Intermediate">Intermediate</option>
             <option value="Senior">Senior</option>
           </select>
-          <span class="error-message" id="experience-error"></span>
+          <span class="error-message" id="experienceLevel-error"></span>
         </div>
 
 
       <!-- whatsapp number  -->
            <div class="custom-input select-box">
-             <label for="whatsapp">WhatsApp Number <span>*</span></label>
+             <label for="whatsappNumber">WhatsApp Number <span>*</span></label>
                 <div style="display: flex; gap: 0.5rem;" class="selected-option">
                     <div>
                         <span class="iconify" data-icon="flag:gb-4x3"></span>
@@ -136,15 +136,15 @@
 
                     
                     <input type="tel"
-                     name="whatsapp"
+                     name="whatsappNumber"
                      placeholder="Phone Number"
                      required
-                     id="whatsapp"
+                     id="whatsappNumber"
                      title="Enter a valid phone number"
                      style="flex: 1;">
 
                     </div>
-                    <span class="error-message" id="whatsapp-error"></span>
+                    <span class="error-message" id="whatsappNumber-error"></span>
 
                 <div class="options">
                     <input type="text" class="search-box" placeholder="Search Country Name">
@@ -192,16 +192,16 @@
          
 
           <div class="custom-input">
-          <label for="dob">Date of Birth<span>*</span></label>
-          <input type="date" id="dob" name="dob" required />
-          <span class="error-message" id="dob-error"></span>
+          <label for="dateOfBirth">Date of Birth<span>*</span></label>
+          <input type="date" id="dateOfBirth" name="dateOfBirth" required />
+          <span class="error-message" id="dateOfBirth-error"></span>
         </div>
         
         <!-- bank -->
         <div class="custom-input">
-          <label for="bank">Bank Name<span>*</span></label>
-          <input type="text" name="bank" id="bank" placeholder="Enter bank name" required />
-          <span class="error-message" id="bank-error"></span>
+          <label for="bankName">Bank Name<span>*</span></label>
+          <input type="text" name="bankName" id="bankName" placeholder="Enter bank name" required />
+          <span class="error-message" id="bankName-error"></span>
         </div>
         
         <!-- Account Number -->
@@ -219,9 +219,11 @@
           <span class="error-message" id="accountNumber-error"></span>
         </div>
 
-      
+       <!-- <button type="submit">Register</button> -->
         <button type="submit" id="btn-submit" class="btn btn-submit">Submit</button>
+        <p id="success-message"></p>
       </form>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="./js/api.js">
