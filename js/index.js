@@ -290,43 +290,43 @@ handleStateChange();
 
 // Role selection logic for GitHub and portfolio inputs
 // This code dynamically adjusts the required fields based on the selected role
-  const roleSelect = document.getElementById("role-select");
-  const githubInput = document.getElementById("github");
-  const portfolioInput = document.getElementById("portfolio");
-  const githubRequiredText = document.getElementById("github-required");
+  // const roleSelect = document.getElementById("role-select");
+  // const githubInput = document.getElementById("github");
+  // const portfolioInput = document.getElementById("portfolio");
+  // const githubRequiredText = document.getElementById("github-required");
 
-  const engineerKeywords = [
-    "developer",
-    "engineer",
-    "coder",
-    "annotation",
-  ];
+  // const engineerKeywords = [
+  //   "developer",
+  //   "engineer",
+  //   "coder",
+  //   "annotation",
+  // ];
 
-  const designerKeywords = [
-    "designer",
-    "ux",
-    "ui",
-    "visual",
-  ];
+  // const designerKeywords = [
+  //   "designer",
+  //   "ux",
+  //   "ui",
+  //   "visual",
+  // ];
 
-  roleSelect.addEventListener("change", function () {
-    const selected = this.value.toLowerCase();
+  // roleSelect.addEventListener("change", function () {
+  //   const selected = this.value.toLowerCase();
 
-    const isEngineer = engineerKeywords.some((k) => selected.includes(k));
-    const isDesigner = designerKeywords.some((k) => selected.includes(k));
+  //   const isEngineer = engineerKeywords.some((k) => selected.includes(k));
+  //   const isDesigner = designerKeywords.some((k) => selected.includes(k));
 
-    if (isEngineer) {
-      githubInput.setAttribute("required", "required");
-      githubRequiredText.textContent = "*";
-      portfolioInput.setAttribute("required", "required");
-    } else if (isDesigner) {
-      githubInput.removeAttribute("required");
-      githubRequiredText.textContent = "";
-      portfolioInput.setAttribute("required", "required");
-    } else {
-      githubInput.removeAttribute("required");
-      githubRequiredText.textContent = "";
-      portfolioInput.removeAttribute("required");
-    }
-  });
+  //   if (isEngineer) {
+  //     githubInput.setAttribute("required", "required");
+  //     githubRequiredText.textContent = "*";
+  //     portfolioInput.setAttribute("required", "required");
+  //   } else if (isDesigner) {
+  //     githubInput.removeAttribute("required");
+  //     githubRequiredText.textContent = "";
+  //     portfolioInput.setAttribute("required", "required");
+  //   } else {
+  //     githubInput.removeAttribute("required");
+  //     githubRequiredText.textContent = "";
+  //     portfolioInput.removeAttribute("required");
+  //   }
+  // });
 
