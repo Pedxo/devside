@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/variants.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+
+    <!-- icons -->
+      <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   </head>
   <body>
     <div class="wrapper">
@@ -32,24 +35,84 @@
         </p>
       </header>
 
-      <form id="developer-form">
+      <form id="developer-form" novalidate>
+
         <div class="custom-input">
-          <label for="firstname">First Name <span>*</span></label>
+          <label for="firstName">First Name <span>*</span></label>
           <input
             type="text"
-            name="firstname"
+            name="firstName"
             placeholder="Enter first name..."
             required
+            id="firstName"
           />
+          <span class="error-message" id="firstName-error"></span>
         </div>
+
         <div class="custom-input">
-          <label for="lastname">Last Name <span>*</span></label>
-          <input type="text" name="lastname" placeholder="Enter last name..." required />
+          <label for="lastName">Last Name <span>*</span></label>
+          <input type="text" name="lastName" id="lastName" placeholder="Enter last name..." required />
+           <span class="error-message" id="lastName-error"></span>
         </div>
+
+        <!-- email -->
         <div class="custom-input">
           <label for="email">Email address <span>*</span></label>
           <input type="email" name="email" placeholder="Enter email address" required/>
+          <span class="error-message" id="email-error"></span>
         </div>
+
+        <!-- role  -->
+      <div class="custom-input">
+      <label for="role">Role title <span>*</span></label>
+      <select name="roleTitle" id="role-select" required>
+        <option value="">Select your role</option>
+        <option value="Data annotator">Data annotator</option>
+        <option value="UI/UX designer">UI/UX designer</option>
+        <option value="Frontend developer">Frontend developer</option>
+        <option value="Backend developer">Backend developer</option>
+        <option value="Mobile developer">Mobile developer</option>
+        <option value="Full-stack developer">Full-stack developer</option>
+        <option value="Devops engineer">Devops engineer</option>
+        <option value="Data scientist">Data scientist</option>
+        <option value="Prompt engineer">Prompt engineer</option>
+        <option value="Creative engineer">Creative engineer</option>
+        <option value="Research engineer">Research engineer</option>
+        <option value="Vibe coder">Vibe coder</option>
+        <option value="UX experimenter">UX experimenter</option>
+        <option value="UI researcher">UI researcher</option>
+        <option value="Visual/animation designer">Visual/animation designer</option>
+        <option value="Code annotation">Code annotation</option>
+      </select>
+      <span class="error-message" id="role-error"></span>
+      </div>
+
+      <!-- github -->
+      <div class="custom-input">
+          <label for="githubAccount">GitHub Account <span id="githubAccount-required"></span></label>
+          <input
+            type="url"
+            name="githubAccount"
+            id="githubAccount"
+            placeholder="Enter your GitHub profile link"
+          />
+          <span class="error-message" id="githubAccount-error"></span>
+        </div>
+
+        <!-- portfolio -->
+        <div class="custom-input">
+          <label for="portfolioLink">Portfolio Link <span>*</span></label>
+          <input
+            type="url"
+            name="portfolioLink"
+            id="portfolioLink"
+            placeholder="Drop link to your portfolio or a project you're proud of"
+            required
+          />
+          <span class="error-message" id="portfolioLink-error"></span>
+        </div>
+
+        <!-- experience -->
 
       <div class="custom-input">
       <label for="role">Role title <span>*</span></label>
@@ -86,6 +149,14 @@
 
 
         <div class="custom-input">
+          <label for="experienceLevel">Experience Level <span>*</span></label>
+          <select name="experienceLevel" id="experienceLevel" required>
+            <option value="">Select your experience level</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Senior">Senior</option>
+          </select>
+          <span class="error-message" id="experienceLevel-error"></span>
           <label for="portfolio">Portfolio Link <span>*</span></label>
           <input
             type="url"
@@ -97,32 +168,89 @@
         </div>
 
 
+      <!-- whatsapp number  -->
+           <div class="custom-input select-box">
+             <label for="whatsappNumber">WhatsApp Number <span>*</span></label>
+                <div style="display: flex; gap: 0.5rem;" class="selected-option">
+                    <div>
+                        <span class="iconify" data-icon="flag:gb-4x3"></span>
+                        <!-- <strong>+44</strong> -->
+                    </div>
+
+                    
+                    <input type="tel"
+                     name="whatsappNumber"
+                     placeholder="Phone Number"
+                     required
+                     id="whatsappNumber"
+                     title="Enter a valid phone number"
+                     style="flex: 1;">
+
+                    </div>
+                    <span class="error-message" id="whatsappNumber-error"></span>
+
+                <div class="options">
+                    <input type="text" class="search-box" placeholder="Search Country Name">
+                    <ol>
+                  
+                    </ol>
+                </div>
+           </div>
+
+
+           <!-- country -->
+
+
 
         <div class="custom-input">
           <label for="country">Country <span>*</span></label>
           <select name="country" id="country-select" required>
             <option value="">Select Country</option>
           </select>
+          <span class="error-message" id="country-error"></span>
         </div>
+
+        <!-- state -->
         <div class="custom-input">
           <label for="state">State <span>*</span></label>
           <select name="state" id="state-select" required></select>
+          <span class="error-message" id="state-error"></span>
         </div>
+
+        <!-- city -->
         <div class="custom-input">
           <label for="city">City <span>*</span></label>
           <select name="city" id="city-select" required></select>
+          <span class="error-message" id="city-error"></span>
         </div>
+
+        <!-- gender -->
         <div class="custom-input">
           <label for="gender">Gender <span>*</span></label>
           <select name="gender" id="gender-select" required>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
+          <span class="error-message" id="gender-error"></span>
         </div>
+
+        <!-- dob -->
+         
+
+          <div class="custom-input">
+          <label for="dateOfBirth">Date of Birth<span>*</span></label>
+          <input type="date" id="dateOfBirth" name="dateOfBirth" required />
+          <span class="error-message" id="dateOfBirth-error"></span>
+        </div>
+        
+        <!-- bank -->
         <div class="custom-input">
-          <label for="bank">Bank Name<span>*</span></label>
-          <input type="text" name="bank" placeholder="Enter bank name" required />
+          <label for="bankName">Bank Name<span>*</span></label>
+          <input type="text" name="bankName" id="bankName" placeholder="Enter bank name" required />
+          <span class="error-message" id="bankName-error"></span>
         </div>
+        
+        <!-- Account Number -->
         <div class="custom-input">
           <label for="accountNumber">Account Number<span>*</span></label>
           <input
@@ -132,14 +260,16 @@
             name="accountNumber"
             placeholder="Enter 10 digit account number"
             required
+            id="accountNumber"
           />
+          <span class="error-message" id="accountNumber-error"></span>
         </div>
-        <div class="custom-input">
-          <label for="dob">Date of Birth<span>*</span></label>
-          <input type="date" id="dob" name="dob" required />
-        </div>
-        <button id="btn-submit" class="btn btn-submit">Submit</button>
+
+       <!-- <button type="submit">Register</button> -->
+        <button type="submit" id="btn-submit" class="btn btn-submit">Submit</button>
+        <p id="success-message"></p>
       </form>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="./js/api.js">
@@ -147,5 +277,6 @@
     </script>
     <script src="js/index.js"></script>
     <script src="js/config.js"></script>
+    <script src="js/phone.js"></script>
   </body>
 </html>
