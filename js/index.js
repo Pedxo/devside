@@ -205,6 +205,7 @@ form.addEventListener("submit",async (e) => {
     if (res.ok) {
       //  Success
       console.log("Submitted Form Data:", data);
+       alert(result?.message || "Form submitted successfully!");
       messageEl.textContent = "Form submitted successfully!";
       messageEl.style.color = "green";
       form.reset();
