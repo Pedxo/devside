@@ -83,6 +83,15 @@
         <option value="UI researcher">UI researcher</option>
         <option value="Visual/animation designer">Visual/animation designer</option>
         <option value="Code annotation">Code annotation</option>
+        <option value="Ghostbuster">Ghostbuster</option>
+        <option value="Content Moderator & rater">Content Moderator & rater</option>
+        <option value="Code reviewer">Code reviewer</option>
+        <option value="Video editor">Video editor</option>
+        <option value="Agent operator">Agent operator</option>
+        <option value="ML researcher">ML researcher</option>
+        <option value="ML engineer">ML engineer</option>
+        <option value="Graphics designer + illustrator">Graphics designer + illustrator</option>
+        <option value="3D Artist/Developer">3D Artist/Developer</option>
       </select>
       <span class="error-message" id="roleTitle-error"></span>
       </div>
@@ -112,12 +121,59 @@
           <span class="error-message" id="portfolioLink-error"></span>
         </div>
 
-        <!-- experience -->
+      <!-- NEW FIELD 1 : HOME ADDRESS (Required)                     -->
 
+      <div class="custom-input">
+        <label for="homeAddress">
+          Home Address <span>*</span>
+        </label>
+
+        <input
+          type="text"
+          id="homeAddress"
+          name="homeAddress"
+          placeholder="Enter your home address"
+          required
+        />
+
+        <span
+          class="error-message"
+          id="homeAddress-error">
+        </span>
+      </div>
+
+      <!-- NEW FIELD 2 : SOCIAL MEDIA PROFILES (Optional)            -->
   
+      <div class="custom-input">
 
-     
+        <label for="socialMediaProfiles">
+          Social Media Profile URLs
+        </label>
 
+        <button
+          type="button"
+          id="open-social-modal"
+          class="social-btn">
+
+          + Add Social Media Profiles
+
+        </button>
+
+        <small class="helper-text">
+          This field is optional.
+        </small>
+
+      </div>
+
+      <!-- Hidden input that stores all URLs before form submission -->
+
+      <input
+        type="hidden"
+        id="socialMediaProfiles"
+        name="socialMediaProfiles"
+      />
+
+        <!-- experience -->
 
         <div class="custom-input">
           <label for="experienceLevel">Experience Level <span>*</span></label>
@@ -163,8 +219,6 @@
 
 
            <!-- country -->
-
-
 
         <div class="custom-input">
           <label for="country">Country <span>*</span></label>
@@ -239,6 +293,152 @@
        <!-- <button type="submit">Register</button> -->
         <button type="submit" id="btn-submit" class="btn btn-submit">Submit</button>
         <p id="success-message"></p>
+
+
+
+      <!-- SOCIAL MEDIA MODAL                                        -->
+      <!-- Opens when user clicks Add Social Media Profiles          -->
+
+      <div
+      id="social-media-modal"
+      class="modal-overlay">
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+
+          <h2>Social Media Profile URLs</h2>
+
+          <button
+            type="button"
+            id="close-social-modal"
+            class="close-modal">
+
+            &times;
+
+          </button>
+
+        </div>
+
+        <div class="modal-body">
+
+          <div class="custom-input">
+            <label for="linkedinUrl">LinkedIn</label>
+
+            <input
+              type="url"
+              id="linkedinUrl"
+              placeholder="https://linkedin.com/in/yourname">
+          </div>
+
+          <div class="custom-input">
+            <label for="gitlabUrlModal">GitLab (Optional)</label>
+
+            <input
+              type="url"
+              id="gitlabUrlModal"
+              placeholder="https://gitlab.com/username">
+          </div>
+
+          <div class="custom-input">
+            <label for="twitterUrl">Twitter / X</label>
+
+            <input
+              type="url"
+              id="twitterUrl"
+              placeholder="https://x.com/username">
+          </div>
+
+          <div class="custom-input">
+            <label for="facebookUrl">Facebook</label>
+
+            <input
+              type="url"
+              id="facebookUrl"
+              placeholder="https://facebook.com/username">
+          </div>
+
+          <div class="custom-input">
+            <label for="instagramUrl">Instagram</label>
+
+            <input
+              type="url"
+              id="instagramUrl"
+              placeholder="https://instagram.com/username">
+          </div>
+
+          <div class="custom-input">
+            <label for="tiktokUrl">TikTok</label>
+
+            <input
+              type="url"
+              id="tiktokUrl"
+              placeholder="https://tiktok.com/@username">
+          </div>
+
+          <div class="custom-input">
+            <label for="youtubeUrl">YouTube</label>
+
+            <input
+              type="url"
+              id="youtubeUrl"
+              placeholder="https://youtube.com/@channel">
+          </div>
+
+          <div class="custom-input">
+            <label for="behanceUrl">Behance</label>
+
+            <input
+              type="url"
+              id="behanceUrl"
+              placeholder="https://behance.net/username">
+          </div>
+
+          <div class="custom-input">
+            <label for="dribbbleUrl">Dribbble</label>
+
+            <input
+              type="url"
+              id="dribbbleUrl"
+              placeholder="https://dribbble.com/username">
+          </div>
+
+          <div class="custom-input">
+            <label for="otherSocialUrl">
+              Other Profile
+            </label>
+
+            <input
+              type="url"
+              id="otherSocialUrl"
+              placeholder="https://example.com/profile">
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button
+            type="button"
+            id="cancel-social-btn">
+
+            Cancel
+
+          </button>
+
+          <button
+            type="button"
+            id="save-social-btn">
+
+            Save
+
+          </button>
+
+        </div>
+
+      </div>
+
+      </div>
       </form>
 
     </div>
