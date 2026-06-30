@@ -336,3 +336,280 @@ input.search-box {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* =====================
+   NEW STYLES
+   SOCIAL MEDIA BUTTON
+   ==================== */
+
+   .social-btn{
+    width:100%;
+    background:transparent !important;
+    color:var(--Black) !important;
+    border:1px solid var(--Black) !important;
+    border-radius:5px !important;
+    padding:8px 10px !important;
+    text-align:left;
+    font-size:14px;
+    cursor:pointer;
+    transition:all .25s ease;
+}
+
+.social-btn:hover{
+    background:#f7f7f7 !important;
+}
+
+.social-btn:focus{
+    outline:none;
+    border:2px solid var(--primary) !important;
+}
+
+
+/* Optional helper text */
+
+.helper-text{
+    font-size:.75rem;
+    color:var(--brandGrey);
+}
+
+
+
+/* ================
+   MODAL OVERLAY
+   ================ */
+
+.modal-overlay{
+
+    position:fixed;
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:9999;
+
+    padding:1rem;
+
+}
+
+
+
+/* Display when opened */
+
+.modal-overlay.active{
+
+    display:flex;
+
+}
+
+
+
+/* ===========
+   MODAL
+   ============ */
+
+.modal-content{
+
+    background:#fff;
+
+    width:100%;
+
+    max-width:650px;
+
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    border-radius:12px;
+
+    box-shadow:0 12px 40px rgba(0,0,0,.2);
+
+    animation:modalFade .25s ease;
+
+}
+
+
+
+/* =================
+   HEADER
+   ================= */
+
+.modal-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px;
+
+    border-bottom:1px solid #e5e5e5;
+
+}
+
+.modal-header h2{
+
+    font-size:20px;
+
+    font-weight:600;
+
+}
+
+
+
+/* ===============
+   CLOSE BUTTON
+   =============== */
+
+.close-modal{
+
+    background:transparent !important;
+
+    border:none !important;
+
+    color:#444 !important;
+
+    font-size:28px;
+
+    cursor:pointer;
+
+    padding:0 !important;
+
+    line-height:1;
+
+}
+
+.close-modal:hover{
+
+    opacity:.7;
+
+}
+
+
+
+/* ==============
+   BODY
+   ============== */
+
+.modal-body{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:1rem;
+
+    padding:20px;
+
+}
+
+
+
+/* Make inputs inside modal use full width */
+
+.modal-body .custom-input{
+
+    max-width:100%;
+
+}
+
+
+
+/* ================
+   FOOTER
+   ================ */
+
+.modal-footer{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:1rem;
+
+    padding:20px;
+
+    border-top:1px solid #eee;
+
+}
+
+
+
+/* ========================
+   CANCEL BUTTON
+   ==================== */
+
+#cancel-social-btn{
+
+    background:transparent;
+
+    color:var(--Black);
+
+    border:1px solid var(--Black);
+
+    border-radius:5px;
+
+    padding:10px 18px;
+
+}
+
+#cancel-social-btn:hover{
+
+    background:#f5f5f5;
+
+}
+
+
+
+/* =====================
+   SAVE BUTTON
+   ==================== */
+
+#save-social-btn{
+
+    background:var(--Black);
+
+    color:#fff;
+
+    border-radius:5px;
+
+    padding:10px 20px;
+
+}
+
+#save-social-btn:hover{
+
+    opacity:.9;
+
+}
+
+
+
+/* ===========================
+   MODAL ANIMATION
+   =========================== */
+
+@keyframes modalFade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}

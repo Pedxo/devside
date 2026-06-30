@@ -42,18 +42,41 @@ const checkInputDisability = () => {
         }
     });
 };
+// function showDateModal() {
+//     const date = document.querySelector("#dob");
+//     date.addEventListener("click", (e) => {
+//         e.target.showPicker();
+//     });
+// }
+
+// ==========================================================
+// Date Picker
+// Fixed:
+// 1. Correct input ID
+// 2. Null safety
+// 3. Browser compatibility
+// ==========================================================
+
 function showDateModal() {
-    const date = document.querySelector("#dob");
-    date.addEventListener("click", (e) => {
-        e.target.showPicker();
-    });
+  const date = document.querySelector("#dateOfBirth");
+
+  if (!date)
+      return;
+
+  date.addEventListener("click", (e) => {
+      const target = e.target;
+
+      if ("showPicker" in target) {
+          target.showPicker();
+      }
+  });
 }
 
 //  Role selection logic for GitHub and portfolio inputs
 // This code dynamically adjusts the required fields based on the selected role
   const roleSelect = document.getElementById("role-select");
   const githubInput = document.getElementById("githubAccount");
-  const portfolioInput = document.getElementById("portfolio");
+  const portfolioInput = document.getElementById("portfolioLink");
   const githubRequiredText = document.getElementById("githubAccount-required");
 
   const engineerKeywords = [
@@ -284,10 +307,118 @@ function handleFormSubmit() {
         e.preventDefault();
     });
 }
-showDateModal();
-checkInputDisability();
-handleCountryChange();
-handleStateChange();
+
+
+// ==========================================================
+// Social Media Modal
+// ==========================================================
+
+function handleSocialMediaModal() {
+
+  const openBtn = document.getElementById("open-social-modal");
+  const closeBtn = document.getElementById("close-social-modal");
+  const cancelBtn = document.getElementById("cancel-social-btn");
+  const saveBtn = document.getElementById("save-social-btn");
+  const modal = document.getElementById("social-media-modal");
+  const hiddenInput = document.getElementById("socialMediaProfiles");
+
+  if (
+      !openBtn ||
+      !closeBtn ||
+      !cancelBtn ||
+      !saveBtn ||
+      !modal ||
+      !hiddenInput
+  ) {
+      return;
+  }
+
+  // Open modal
+
+  openBtn.addEventListener("click", () => {
+
+      modal.classList.add("active");
+
+  });
+
+  // Close modal
+
+  const closeModal = () => {
+
+      modal.classList.remove("active");
+
+  };
+
+  closeBtn.addEventListener("click", closeModal);
+
+  cancelBtn.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", (e) => {
+
+      if (e.target === modal) {
+
+          closeModal();
+
+      }
+
+  });
+
+  // Save URLs
+
+  saveBtn.addEventListener("click", () => {
+
+      const socialMedia = {
+
+          linkedin: document.getElementById("linkedinUrl").value.trim(),
+
+          github: document.getElementById("gitlabUrlModal").value.trim(),
+
+          twitter: document.getElementById("twitterUrl").value.trim(),
+
+          facebook: document.getElementById("facebookUrl").value.trim(),
+
+          instagram: document.getElementById("instagramUrl").value.trim(),
+
+          tiktok: document.getElementById("tiktokUrl").value.trim(),
+
+          youtube: document.getElementById("youtubeUrl").value.trim(),
+
+          behance: document.getElementById("behanceUrl").value.trim(),
+
+          dribbble: document.getElementById("dribbbleUrl").value.trim(),
+
+          other: document.getElementById("otherSocialUrl").value.trim()
+
+      };
+
+      hiddenInput.value = JSON.stringify(socialMedia);
+
+      closeModal();
+
+  });
+
+}
+
+// showDateModal();
+
+
+// checkInputDisability();
+// handleCountryChange();
+// handleStateChange();
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  showDateModal();
+
+  checkInputDisability();
+
+  handleCountryChange();
+
+  handleStateChange();
+
+  handleSocialMediaModal();
+
+});
 
 // Role selection logic for GitHub and portfolio inputs
 // This code dynamically adjusts the required fields based on the selected role
