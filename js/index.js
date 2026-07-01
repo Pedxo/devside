@@ -363,9 +363,160 @@ function handleSocialMediaModal() {
 
   });
 
+  // SOcial Media Modal Validation
+  function validateSocialMediaUrls() {
+
+    const socialFields = [
+      {
+        id: "linkedinUrl",
+        domains: [
+          "https://linkedin.com",
+          "https://www.linkedin.com"
+        ]
+      },
+  
+      {
+        id: "gitlabUrlModal",
+        domains: [
+          "https://gitlab.com",
+          "https://www.gitlab.com"
+        ]
+      },
+  
+      {
+        id: "twitterUrl",
+        domains: [
+          "https://x.com",
+          "https://twitter.com",
+          "https://www.x.com",
+          "https://www.twitter.com"
+        ]
+      },
+  
+      {
+        id: "facebookUrl",
+        domains: [
+          "https://facebook.com",
+          "https://www.facebook.com"
+        ]
+      },
+  
+      {
+        id: "instagramUrl",
+        domains: [
+          "https://instagram.com",
+          "https://www.instagram.com"
+        ]
+      },
+  
+      {
+        id: "tiktokUrl",
+        domains: [
+          "https://tiktok.com",
+          "https://www.tiktok.com"
+        ]
+      },
+  
+      {
+        id: "youtubeUrl",
+        domains: [
+          "https://youtube.com",
+          "https://www.youtube.com",
+          "https://youtu.be"
+        ]
+      },
+  
+      {
+        id: "behanceUrl",
+        domains: [
+          "https://behance.net",
+          "https://www.behance.net"
+        ]
+      },
+  
+      {
+        id: "dribbbleUrl",
+        domains: [
+          "https://dribbble.com",
+          "https://www.dribbble.com"
+        ]
+      },
+  
+      {
+        id: "otherSocialUrl",
+        domains: [
+          "https://"
+        ]
+      }
+    ];
+  
+    let isValid = true;
+  
+    socialFields.forEach((field) => {
+  
+      const input = document.getElementById(field.id);
+  
+      const error = document.getElementById(`${field.id}-error`);
+  
+      const value = input.value.trim();
+  
+      error.textContent = "";
+      input.classList.remove("error");
+  
+      if (!value) return;
+  
+      const matched = field.domains.some(domain =>
+        value.startsWith(domain)
+      );
+  
+      if (!matched) {
+  
+        error.textContent =
+          "Please enter a valid " +
+          input.previousElementSibling.textContent +
+          " profile URL.";
+  
+        input.classList.add("error");
+  
+        isValid = false;
+      }
+  
+    });
+  
+    return isValid;
+  }
+
+  //live update validation
+  [
+    "linkedinUrl",
+    "gitlabUrlModal",
+    "twitterUrl",
+    "facebookUrl",
+    "instagramUrl",
+    "tiktokUrl",
+    "youtubeUrl",
+    "behanceUrl",
+    "dribbbleUrl",
+    "otherSocialUrl"
+  ].forEach((id) => {
+  
+    const input = document.getElementById(id);
+  
+    input.addEventListener("input", () => {
+  
+      validateSocialMediaUrls();
+  
+    });
+  
+  });
+
   // Save URLs
 
   saveBtn.addEventListener("click", () => {
+
+    if(!validateSocialMediaUrls()) {
+      return;
+    }
 
       const socialMedia = {
 
