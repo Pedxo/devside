@@ -256,14 +256,6 @@ form.addEventListener("submit",async (e) => {
 });
 
 
-function getFormData(form) {
-  const formData = new FormData(form);
-  const data = {};
-  formData.forEach((value, key) => {
-    data[key] = value;
-  });
-  return data;
-}
 
 // function handleFormSubmit() {
 //   const form = document.getElementById("developer-form");
@@ -548,6 +540,44 @@ function handleSocialMediaModal() {
 
   });
 
+}
+
+function getFormData(form) {
+
+  const formData = new FormData(form);
+
+  const data = {};
+
+  formData.forEach((value, key) => {
+
+      // Convert hidden JSON string into object
+      // expected by backend
+
+      if (key === "socialMediaProfiles") {
+
+          if (value.toString().trim() !== "") {
+
+              try {
+
+                  data.socialProfiles = JSON.parse(value.toString());
+
+              }
+              catch {
+
+                  data.socialProfiles = {};
+
+              }
+
+          }
+
+          return;
+      }
+
+      data[key] = value;
+
+  });
+
+  return data;
 }
 
 // showDateModal();

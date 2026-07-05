@@ -244,6 +244,54 @@ function handleSocialMediaModal() {
 
 }
 
+
+
+// Build form payload before sending to backend
+// Converts socialMediaProfiles JSON string into object
+// and aligns frontend field with backend field (socialProfiles)
+
+
+function getFormData(form: HTMLFormElement) {
+
+  const formData = new FormData(form);
+
+  const data: Record<string, any> = {};
+
+  formData.forEach((value, key) => {
+
+    // -------------------------------------------------
+    // Convert hidden social media JSON string
+    // into an object expected by backend
+    // -------------------------------------------------
+
+    if (key === "socialMediaProfiles") {
+
+      if (value.toString().trim() !== "") {
+
+        try {
+
+          data.socialProfiles = JSON.parse(value.toString());
+
+        } catch {
+
+          data.socialProfiles = {};
+
+        }
+
+      }
+
+      return;
+
+    }
+
+    data[key] = value;
+
+  });
+
+  return data;
+
+}
+
 // ==========================================================
 // Initialize Page
 // ==========================================================
