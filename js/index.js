@@ -429,7 +429,7 @@ function handleSocialMediaModal() {
   const cancelBtn = document.getElementById("cancel-social-btn");
   const saveBtn = document.getElementById("save-social-btn");
   const modal = document.getElementById("social-media-modal");
-  const hiddenInput = document.getElementById("socialMediaProfiles");
+  const hiddenInput = document.getElementById("socialProfiles");
 
   if (
       !openBtn ||
