@@ -53,45 +53,487 @@ const checkInputDisability = () => {
   });
 };
 
-// function showDateModal() {
-//   const date = document.querySelector("#dob") as HTMLInputElement;
-//   date.addEventListener("click", (e) => {
-//     (e.target as HTMLInputElement).showPicker();
-//   });
-// }
 
-// ============================
+
+
 // Date Picker
 // Fixed:
 // 1. Correct ID (#dateOfBirth)
 // 2. Null safety
 // 3. Browser compatibility
-// ============================
+// 4. Prevent future dates
+// 5. Minimum age = 14 years
 
-function showDateModal() {
+
+function showDateModal(): void {
+
   const date = document.querySelector(
     "#dateOfBirth"
-  ) as HTMLInputElement;
+  ) as HTMLInputElement | null;
 
   if (!date) return;
 
+  // ---------------------------------------
+  // Prevent selecting future dates
+  // ---------------------------------------
+
+  const today = new Date();
+
+  date.max = today.toISOString().split("T")[0];
+
   date.addEventListener("click", (e) => {
+
     const target = e.target as HTMLInputElement;
 
     if ("showPicker" in target) {
       target.showPicker();
     }
+
   });
+
+  // ---------------------------------------
+  // Live validation
+  // ---------------------------------------
+
+  date.addEventListener("change", () => {
+
+    validateDateOfBirth();
+
+  });
+
 }
 
-function handleFormSubmit() {
-  const form = document.getElementById("developer-form") as HTMLFormElement
-  
-  form.addEventListener("submit", (e: Event) => {
-    e.preventDefault()
-  })
+// Date of Birth Validation
+//
+// Rules
+// 1. Cannot be empty
+// 2. Cannot be a future date
+// 3. Applicant must be at least 14 years old
+
+
+function validateDateOfBirth(): boolean {
+
+  const input = document.getElementById(
+    "dateOfBirth"
+  ) as HTMLInputElement | null;
+
+  const error = document.getElementById(
+    "dateOfBirth-error"
+  ) as HTMLSpanElement | null;
+
+  if (!input || !error) {
+    return true;
+  }
+
+  error.textContent = "";
+
+  input.classList.remove("error");
+
+  if (!input.value) {
+    return true;
+  }
+
+  const birthDate = new Date(input.value);
+
+  const today = new Date();
+
+  // -------------------------
+  // Future date
+  // -------------------------
+
+  if (birthDate > today) {
+
+    error.textContent =
+      "Date of birth cannot be in the future.";
+
+    input.classList.add("error");
+
+    return false;
+
+  }
+
+  // -------------------------
+  // Calculate age
+  // -------------------------
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+
+  const monthDifference =
+    today.getMonth() - birthDate.getMonth();
+
+  if (
+    monthDifference < 0 ||
+    (
+      monthDifference === 0 &&
+      today.getDate() < birthDate.getDate()
+    )
+  ) {
+    age--;
+  }
+
+  if (age < 14) {
+
+    error.textContent =
+      "Applicant must be at least 14 years old.";
+
+    input.classList.add("error");
+
+    return false;
+
+  }
+
+  return true;
+
 }
 
+
+// Role Selection
+// GitHub Account is OPTIONAL for every role.
+
+function handleRoleSelection(): void {
+
+  const roleSelect = document.getElementById(
+    "role-select"
+  ) as HTMLSelectElement | null;
+
+  const githubInput = document.getElementById(
+    "githubAccount"
+  ) as HTMLInputElement | null;
+
+  const githubRequiredText = document.getElementById(
+    "githubAccount-required"
+  ) as HTMLSpanElement | null;
+
+  if (!roleSelect || !githubInput || !githubRequiredText) {
+    return;
+  }
+
+  roleSelect.addEventListener("change", () => {
+
+    // ----------------------------------------
+    // GitHub is OPTIONAL for ALL roles.
+    // ----------------------------------------
+
+    githubInput.removeAttribute("required");
+
+    // Remove the visual red asterisk.
+    githubRequiredText.textContent = "";
+
+  });
+
+}
+
+
+interface RequiredField {
+  input: HTMLInputElement | HTMLSelectElement | null;
+  errorEl: HTMLElement | null;
+  name: string;
+}
+
+function validateFields(
+  fields: RequiredField[]
+): boolean {
+
+  let allValid = true;
+
+  let firstInvalidInput:
+    HTMLInputElement | HTMLSelectElement | null = null;
+
+  fields.forEach(({ input, errorEl, name }) => {
+
+    if (!input || !errorEl) return;
+
+    const value = input.value.trim();
+
+    errorEl.textContent = "";
+
+    input.classList.remove("error");
+
+    const flagWrapper =
+      input
+        .closest(".selected-option")
+        ?.querySelector("div");
+
+    // ----------------------------
+    // Required field
+    // ----------------------------
+
+    if (!value) {
+
+      errorEl.textContent =
+        "This field is required.";
+
+      input.classList.add("error");
+
+      if (name === "whatsappNumber") {
+
+        flagWrapper?.classList.add(
+          "error-border"
+        );
+
+      }
+
+      if (firstInvalidInput === null) {
+
+        firstInvalidInput = input;
+
+      }
+
+      allValid = false;
+
+      return;
+
+    }
+
+    // ----------------------------
+    // Email
+    // ----------------------------
+
+    if (
+      input instanceof HTMLInputElement &&
+      input.type === "email" &&
+      !/^\S+@\S+\.\S+$/.test(value)
+    ) {
+
+      errorEl.textContent =
+        "Please enter a valid email address.";
+
+      input.classList.add("error");
+
+      if (firstInvalidInput === null) {
+
+        firstInvalidInput = input;
+
+      }
+
+      allValid = false;
+
+      return;
+
+    }
+
+    // ----------------------------
+    // URL
+    // ----------------------------
+
+    if (
+      input instanceof HTMLInputElement &&
+      input.type === "url" &&
+      !/^https?:\/\/.+\..+/.test(value)
+    ) {
+
+      errorEl.textContent =
+        "Please enter a valid URL.";
+
+      input.classList.add("error");
+
+      if (firstInvalidInput === null) {
+
+        firstInvalidInput = input;
+
+      }
+
+      allValid = false;
+
+      return;
+
+    }
+
+    // ----------------------------
+    // Telephone
+    // ----------------------------
+
+    if (
+      input instanceof HTMLInputElement &&
+      input.type === "tel" &&
+      !/^\+[\d()]{7,20}$/.test(value)
+    ) {
+
+      errorEl.textContent =
+        "Please enter a valid phone number.";
+
+      input.classList.add("error");
+
+      if (firstInvalidInput === null) {
+
+        firstInvalidInput = input;
+
+      }
+
+      allValid = false;
+
+      return;
+
+    }
+
+    // ----------------------------
+    // Account Number
+    // ----------------------------
+
+    if (
+      name === "accountNumber" &&
+      !/^\d{10}$/.test(value)
+    ) {
+
+      errorEl.textContent =
+        "Account number must be exactly 10 digits.";
+
+      input.classList.add("error");
+
+      if (firstInvalidInput === null) {
+
+        firstInvalidInput = input;
+
+      }
+
+      allValid = false;
+
+      return;
+
+    }
+
+    // ----------------------------
+    // Remove WhatsApp error border
+    // ----------------------------
+
+    if (name === "whatsappNumber") {
+
+      flagWrapper?.classList.remove(
+        "error-border"
+      );
+
+    }
+
+    input.classList.remove("error");
+
+  });
+
+  // ----------------------------
+  // Validate Date of Birth
+  // ----------------------------
+
+  if (!validateDateOfBirth()) {
+
+    allValid = false;
+
+    if (!firstInvalidInput) {
+
+      const dob =
+        document.getElementById(
+          "dateOfBirth"
+        ) as HTMLInputElement | null;
+
+      firstInvalidInput = dob;
+
+    }
+
+  }
+
+  firstInvalidInput?.focus();
+
+  return allValid;
+
+}
+
+//form submission
+const form = document.getElementById("developer-form") as HTMLFormElement;
+
+console.log("Form found:", form);
+
+
+form.addEventListener("submit", async (e: Event) => {
+
+    e.preventDefault();
+
+    const requiredFields = getRequiredFields(form);
+    const isValid = validateFields(requiredFields);
+    console.log(isValid);
+
+    if (!isValid) {
+
+      console.warn(
+        "Form validation failed."
+      );
+
+      return;
+
+    }
+
+    const data = getFormData(form);
+    const btn = document.getElementById("btn-submit") as HTMLButtonElement;
+    const messageEl = document.getElementById("success-message") as HTMLParagraphElement;
+
+    try {
+
+      btn.disabled = true;
+
+      btn.innerHTML = `<span class="spinner"></span> Submitting...`;
+
+      const res = await fetch("https://pedxo-back-project.onrender.com/talent/details", {
+
+          method: "POST",
+          headers: { "Content-Type": "application/json", },
+          body: JSON.stringify(data),
+        }
+      );
+
+      let result: any = null;
+
+      try {
+
+        result = await res.json();
+
+      } catch {}
+
+      if (res.ok) {
+
+        alert(
+          result?.message ??
+          "Form submitted successfully!"
+        );
+
+        messageEl.textContent =  "Form submitted successfully!";
+
+        messageEl.style.color = "green";
+
+        form.reset();
+
+      }
+
+      else {
+
+        alert(
+          result?.message ??
+          "Something went wrong."
+        );
+
+        messageEl.textContent =
+          result?.message ??
+          "Something went wrong.";
+
+        messageEl.style.color =
+          "red";
+
+      }
+
+    }
+
+    catch (error) {
+
+      console.error("Error submitting form:", error);
+      messageEl.textContent = "Network error. Please check your connection.";
+
+      messageEl.style.color = "red";
+
+    }
+
+    finally {
+      btn.disabled = false;
+      btn.innerHTML = "Submit";
+    } 
+
+  } 
+);
 
 
 // ==========================================================
@@ -126,7 +568,7 @@ function handleSocialMediaModal() {
   ) as HTMLDivElement;
 
   const hiddenInput = document.getElementById(
-    "socialMediaProfiles"
+    "socialProfiles"
   ) as HTMLInputElement;
 
   if (
@@ -182,14 +624,14 @@ function handleSocialMediaModal() {
 
   saveBtn.addEventListener("click", () => {
 
-    const socialMedia = {
+    const socialProfiles = {
 
       linkedin:
         (
           document.getElementById("linkedinUrl") as HTMLInputElement
         ).value.trim(),
 
-      github:
+      gitlab:
         (
           document.getElementById("gitlabUrlModal") as HTMLInputElement
         ).value.trim(),
@@ -236,7 +678,7 @@ function handleSocialMediaModal() {
 
     };
 
-    hiddenInput.value = JSON.stringify(socialMedia);
+    hiddenInput.value = JSON.stringify(socialProfiles);
 
     closeModal();
 
@@ -264,7 +706,7 @@ function getFormData(form: HTMLFormElement) {
     // into an object expected by backend
     // -------------------------------------------------
 
-    if (key === "socialMediaProfiles") {
+    if (key === "socialProfiles") {
 
       if (value.toString().trim() !== "") {
 
@@ -306,7 +748,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   handleStateChange();
 
+  handleRoleSelection();
+
   handleSocialMediaModal();
+
+  validateDateOfBirth();
 
 });
 

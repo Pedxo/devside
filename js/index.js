@@ -42,83 +42,180 @@ const checkInputDisability = () => {
         }
     });
 };
-// function showDateModal() {
-//     const date = document.querySelector("#dob");
-//     date.addEventListener("click", (e) => {
-//         e.target.showPicker();
-//     });
-// }
 
-// ==========================================================
+
+
 // Date Picker
-// Fixed:
-// 1. Correct input ID
-// 2. Null safety
-// 3. Browser compatibility
-// ==========================================================
+// Prevent future dates
+// Live Date of Birth validation
 
 function showDateModal() {
+
   const date = document.querySelector("#dateOfBirth");
 
-  if (!date)
-      return;
+  if (!date) return;
+
+  // ---------------------------------------
+  // Prevent selecting future dates
+  // ---------------------------------------
+
+  const today = new Date();
+
+  date.max = today.toISOString().split("T")[0];
 
   date.addEventListener("click", (e) => {
+
       const target = e.target;
 
       if ("showPicker" in target) {
+
           target.showPicker();
+
       }
+
   });
+
+  // ---------------------------------------
+  // Live validation
+  // ---------------------------------------
+
+  date.addEventListener("change", () => {
+
+      validateDateOfBirth();
+
+  });
+
 }
 
-//  Role selection logic for GitHub and portfolio inputs
-// This code dynamically adjusts the required fields based on the selected role
+// Date of Birth Validation
+//
+// Rules
+// 1. Cannot be empty
+// 2. Cannot be a future date
+// 3. Applicant must be at least 14 years old
+
+
+function validateDateOfBirth() {
+
+  const input = document.getElementById("dateOfBirth");
+
+  const error = document.getElementById("dateOfBirth-error");
+
+  if (!input || !error) {
+
+      return true;
+
+  }
+
+  // Clear previous error
+
+  error.textContent = "";
+
+  input.classList.remove("error");
+
+  // Allow empty value here.
+  // Required-field validation is handled elsewhere.
+
+  if (!input.value) {
+
+      return true;
+
+  }
+
+  const birthDate = new Date(input.value);
+
+  const today = new Date();
+
+  // ---------------------------------------
+  // Future Date Validation
+  // ---------------------------------------
+
+  if (birthDate > today) {
+
+      error.textContent =
+          "Date of birth cannot be in the future.";
+
+      input.classList.add("error");
+
+      return false;
+
+  }
+
+  // ---------------------------------------
+  // Calculate Age
+  // ---------------------------------------
+
+  let age =
+      today.getFullYear() -
+      birthDate.getFullYear();
+
+  const monthDifference =
+      today.getMonth() -
+      birthDate.getMonth();
+
+  if (
+      monthDifference < 0 ||
+      (
+          monthDifference === 0 &&
+          today.getDate() < birthDate.getDate()
+      )
+  ) {
+
+      age--;
+
+  }
+
+  // ---------------------------------------
+  // Minimum Age Validation
+  // ---------------------------------------
+
+  if (age < 14) {
+
+      error.textContent =
+          "Applicant must be at least 14 years old.";
+
+      input.classList.add("error");
+
+      return false;
+
+  }
+
+  return true;
+
+}
+
+
+// Role Selection
+// GitHub Account is OPTIONAL for every role.
+// Portfolio remains required because the HTML already marks it
+// as required.
+
+
+function handleRoleSelection() {
+
   const roleSelect = document.getElementById("role-select");
+
   const githubInput = document.getElementById("githubAccount");
-  const portfolioInput = document.getElementById("portfolioLink");
+
   const githubRequiredText = document.getElementById("githubAccount-required");
 
-  const engineerKeywords = [
-    "developer",
-    "engineer",
-    "coder",
-    "annotation",
-  ];
+  if (!roleSelect || !githubInput || !githubRequiredText) {
+      return;
+  }
 
-  const designerKeywords = [
-    "designer",
-    "ux",
-    "ui",
-    "visual",
-  ];
+  roleSelect.addEventListener("change", () => {
 
-  roleSelect.addEventListener("change", function () {
-    const selected = this.value.toLowerCase();
+      // GitHub should always stay optional.
 
-    const isEngineer = engineerKeywords.some((k) => selected.includes(k));
-    const isDesigner = designerKeywords.some((k) => selected.includes(k));
-
-    if (isEngineer) {
-      githubInput.setAttribute("required", "required");
-      githubRequiredText.textContent = "*";
-      portfolioInput.setAttribute("required", "required");
-    } else if (isDesigner) {
       githubInput.removeAttribute("required");
+
       githubRequiredText.textContent = "";
-      portfolioInput.setAttribute("required", "required");
-    } else {
-      githubInput.removeAttribute("required");
-      githubRequiredText.textContent = "";
-      portfolioInput.removeAttribute("required");
-    }
+
   });
 
+}
 
 
-
-const form = document.getElementById("developer-form");
-console.log("Form found:", form);
 
 
 function getRequiredFields(form) {
@@ -181,16 +278,36 @@ function validateFields(fields) {
     }
   });
 
+      // Validate Date of Birth
 
-  // Focus on the first invalid input if any
-  if (firstInvalidInput) {
-    firstInvalidInput.focus();
-  }
+    if (!validateDateOfBirth()) {
 
-  return allValid;
+      allValid = false;
+
+      if (!firstInvalidInput) {
+
+          firstInvalidInput =
+              document.getElementById("dateOfBirth");
+
+      }
+
+    }
+
+    // Focus first invalid field
+
+    if (firstInvalidInput) {
+
+      firstInvalidInput.focus();
+
+    }
+
+    return allValid;
 }
 
 
+//submit form
+const form = document.getElementById("developer-form");
+console.log("Form found:", form);
 
 form.addEventListener("submit",async (e) => {
   e.preventDefault();
@@ -474,7 +591,7 @@ function handleSocialMediaModal() {
       }
   
     });
-  
+    
     return isValid;
   }
 
@@ -510,11 +627,11 @@ function handleSocialMediaModal() {
       return;
     }
 
-      const socialMedia = {
+      const socialProfiles = {
 
           linkedin: document.getElementById("linkedinUrl").value.trim(),
 
-          github: document.getElementById("gitlabUrlModal").value.trim(),
+          gitlab: document.getElementById("gitlabUrlModal").value.trim(),
 
           twitter: document.getElementById("twitterUrl").value.trim(),
 
@@ -534,7 +651,7 @@ function handleSocialMediaModal() {
 
       };
 
-      hiddenInput.value = JSON.stringify(socialMedia);
+      hiddenInput.value = JSON.stringify(socialProfiles);
 
       closeModal();
 
@@ -553,7 +670,7 @@ function getFormData(form) {
       // Convert hidden JSON string into object
       // expected by backend
 
-      if (key === "socialMediaProfiles") {
+      if (key === "socialProfiles") {
 
           if (value.toString().trim() !== "") {
 
@@ -590,14 +707,12 @@ function getFormData(form) {
 document.addEventListener("DOMContentLoaded", () => {
 
   showDateModal();
-
   checkInputDisability();
-
   handleCountryChange();
-
   handleStateChange();
-
+  handleRoleSelection();
   handleSocialMediaModal();
+  validateDateOfBirth()
 
 });
 
