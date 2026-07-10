@@ -144,7 +144,7 @@ function validateDateOfBirth(): boolean {
   if (birthDate > today) {
 
     error.textContent =
-      "Date of birth cannot be in the future.";
+      "";
 
     input.classList.add("error");
 
@@ -174,7 +174,7 @@ function validateDateOfBirth(): boolean {
   if (age < 14) {
 
     error.textContent =
-      "Applicant must be at least 14 years old.";
+      "";
 
     input.classList.add("error");
 
