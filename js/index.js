@@ -185,6 +185,73 @@ function validateDateOfBirth() {
 }
 
 
+// ==========================================================
+// Populate Role Dropdown
+// Automatically sorts roles alphabetically.
+// ==========================================================
+
+const developerRoles = [
+  "3D Artist/Developer",
+  "Agent operator",
+  "Backend developer",
+  "Code annotation",
+  "Code reviewer",
+  "Content Moderator & rater",
+  "Creative engineer",
+  "Data annotator",
+  "Data collector",
+  "Data scientist",
+  "Design engineer",
+  "Devops engineer",
+  "Frontend developer",
+  "Full-stack developer",
+  "Game developer",
+  "Ghostbuster",
+  "Graphics designer + illustrator",
+  "Hardware engineer",
+  "ML engineer",
+  "ML researcher",
+  "Mobile developer",
+  "Prompt engineer",
+  "Research engineer",
+  "Rider",
+  "Robotics engineer",
+  "UI researcher",
+  "UI/UX designer",
+  "UX experimenter",
+  "Vibe coder",
+  "Video editor",
+  "Visual/animation designer"
+];
+
+function populateRoleDropdown() {
+
+  const roleSelect =
+    document.getElementById("role-select");
+
+  if (!roleSelect) return;
+
+  developerRoles
+    .sort((a, b) =>
+      a.localeCompare(b, undefined, {
+        sensitivity: "base"
+      })
+    )
+    .forEach((role) => {
+
+      const option =
+        document.createElement("option");
+
+      option.value = role;
+
+      option.textContent = role;
+
+      roleSelect.appendChild(option);
+
+    });
+
+}
+
 // Role Selection
 // GitHub Account is OPTIONAL for every role.
 // Portfolio remains required because the HTML already marks it
@@ -629,25 +696,25 @@ function handleSocialMediaModal() {
 
       const socialProfiles = {
 
-          linkedin: document.getElementById("linkedinUrl").value.trim(),
+         linkedinAccount: document.getElementById("linkedinUrl").value.trim(),
 
-          gitlab: document.getElementById("gitlabUrlModal").value.trim(),
+         gitlabAccount: document.getElementById("gitlabUrlModal").value.trim(),
 
-          twitter: document.getElementById("twitterUrl").value.trim(),
+         twitterAccount: document.getElementById("twitterUrl").value.trim(),
 
-          facebook: document.getElementById("facebookUrl").value.trim(),
+         facebookAccount: document.getElementById("facebookUrl").value.trim(),
 
-          instagram: document.getElementById("instagramUrl").value.trim(),
+         instagramAccount: document.getElementById("instagramUrl").value.trim(),
 
-          tiktok: document.getElementById("tiktokUrl").value.trim(),
+         tiktokAccount: document.getElementById("tiktokUrl").value.trim(),
 
-          youtube: document.getElementById("youtubeUrl").value.trim(),
+         youtubeAccount: document.getElementById("youtubeUrl").value.trim(),
 
-          behance: document.getElementById("behanceUrl").value.trim(),
+         behanceAccount: document.getElementById("behanceUrl").value.trim(),
 
-          dribbble: document.getElementById("dribbbleUrl").value.trim(),
+         dribbbleAccount: document.getElementById("dribbbleUrl").value.trim(),
 
-          other: document.getElementById("otherSocialUrl").value.trim()
+         other: document.getElementById("otherSocialUrl").value.trim()
 
       };
 
@@ -705,7 +772,7 @@ function getFormData(form) {
 // handleStateChange();
 
 document.addEventListener("DOMContentLoaded", () => {
-
+  populateRoleDropdown();
   showDateModal();
   checkInputDisability();
   handleCountryChange();
@@ -757,4 +824,3 @@ document.addEventListener("DOMContentLoaded", () => {
   //     portfolioInput.removeAttribute("required");
   //   }
   // });
-
