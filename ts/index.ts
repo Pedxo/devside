@@ -187,6 +187,75 @@ function validateDateOfBirth(): boolean {
 }
 
 
+// Populate Role Dropdown
+// Automatically sorts roles alphabetically.
+// Any newly added role will appear in the correct position.
+
+const developerRoles: string[] = [
+  "3D Artist/Developer",
+  "Agent operator",
+  "Backend developer",
+  "Code annotation",
+  "Code reviewer",
+  "Content Moderator & rater",
+  "Creative engineer",
+  "Data annotator",
+  "Data collector",
+  "Data scientist",
+  "Design engineer",
+  "Devops engineer",
+  "Frontend developer",
+  "Full-stack developer",
+  "Game developer",
+  "Ghostbuster",
+  "Graphics designer + illustrator",
+  "Hardware engineer",
+  "ML engineer",
+  "ML researcher",
+  "Mobile developer",
+  "Prompt engineer",
+  "Research engineer",
+  "Rider",
+  "Robotics engineer",
+  "UI researcher",
+  "UI/UX designer",
+  "UX experimenter",
+  "Vibe coder",
+  "Video editor",
+  "Visual/animation designer"
+];
+
+function populateRoleDropdown(): void {
+
+  const roleSelect =
+    document.getElementById(
+      "role-select"
+    ) as HTMLSelectElement | null;
+
+  if (!roleSelect) return;
+
+  developerRoles
+    .sort((a, b) =>
+      a.localeCompare(b, undefined, {
+        sensitivity: "base"
+      })
+    )
+    .forEach((role) => {
+
+      const option =
+        document.createElement("option");
+
+      option.value = role;
+
+      option.textContent = role;
+
+      roleSelect.appendChild(option);
+
+    });
+
+}
+
+
 // Role Selection
 // GitHub Account is OPTIONAL for every role.
 
@@ -626,47 +695,47 @@ function handleSocialMediaModal() {
 
     const socialProfiles = {
 
-      linkedin:
+      linkedinAccount:
         (
           document.getElementById("linkedinUrl") as HTMLInputElement
         ).value.trim(),
 
-      gitlab:
+      gitlabAccount:
         (
           document.getElementById("gitlabUrlModal") as HTMLInputElement
         ).value.trim(),
 
-      twitter:
+      twitterAccount:
         (
           document.getElementById("twitterUrl") as HTMLInputElement
         ).value.trim(),
 
-      facebook:
+      facebookAccount:
         (
           document.getElementById("facebookUrl") as HTMLInputElement
         ).value.trim(),
 
-      instagram:
+      instagramAccount:
         (
           document.getElementById("instagramUrl") as HTMLInputElement
         ).value.trim(),
 
-      tiktok:
+      tiktokAccount:
         (
           document.getElementById("tiktokUrl") as HTMLInputElement
         ).value.trim(),
 
-      youtube:
+      youtubeAccount:
         (
           document.getElementById("youtubeUrl") as HTMLInputElement
         ).value.trim(),
 
-      behance:
+      behanceAccount:
         (
           document.getElementById("behanceUrl") as HTMLInputElement
         ).value.trim(),
 
-      dribbble:
+      dribbbleAccount:
         (
           document.getElementById("dribbbleUrl") as HTMLInputElement
         ).value.trim(),
@@ -739,6 +808,7 @@ function getFormData(form: HTMLFormElement) {
 // ==========================================================
 
 document.addEventListener("DOMContentLoaded", () => {
+  populateRoleDropdown();
 
   showDateModal();
 
