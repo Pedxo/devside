@@ -694,33 +694,37 @@ function handleSocialMediaModal() {
       return;
     }
 
-      const socialProfiles = {
+    const socialProfiles = {};
 
-         linkedinAccount: document.getElementById("linkedinUrl").value.trim(),
-
-         gitlabAccount: document.getElementById("gitlabUrlModal").value.trim(),
-
-         twitterAccount: document.getElementById("twitterUrl").value.trim(),
-
-         facebookAccount: document.getElementById("facebookUrl").value.trim(),
-
-         instagramAccount: document.getElementById("instagramUrl").value.trim(),
-
-         tiktokAccount: document.getElementById("tiktokUrl").value.trim(),
-
-         youtubeAccount: document.getElementById("youtubeUrl").value.trim(),
-
-         behanceAccount: document.getElementById("behanceUrl").value.trim(),
-
-         dribbbleAccount: document.getElementById("dribbbleUrl").value.trim(),
-
-         other: document.getElementById("otherSocialUrl").value.trim()
-
-      };
-
-      hiddenInput.value = JSON.stringify(socialProfiles);
-
-      closeModal();
+    const addProfile = (key, id) => {
+    
+        const value = document
+            .getElementById(id)
+            .value
+            .trim();
+    
+        if (value !== "") {
+    
+            socialProfiles[key] = value;
+    
+        }
+    
+    };
+    
+    addProfile("linkedinAccount", "linkedinUrl");
+    addProfile("gitlabAccount", "gitlabUrlModal");
+    addProfile("twitterAccount", "twitterUrl");
+    addProfile("facebookAccount", "facebookUrl");
+    addProfile("instagramAccount", "instagramUrl");
+    addProfile("tiktokAccount", "tiktokUrl");
+    addProfile("youtubeAccount", "youtubeUrl");
+    addProfile("behanceAccount", "behanceUrl");
+    addProfile("dribbbleAccount", "dribbbleUrl");
+    addProfile("other", "otherSocialUrl");
+    
+    hiddenInput.value = JSON.stringify(socialProfiles);
+    
+    closeModal();
 
   });
 
@@ -739,23 +743,43 @@ function getFormData(form) {
 
       if (key === "socialProfiles") {
 
-          if (value.toString().trim() !== "") {
-
-              try {
-
-                  data.socialProfiles = JSON.parse(value.toString());
-
-              }
-              catch {
-
-                  data.socialProfiles = {};
-
-              }
-
-          }
-
-          return;
-      }
+        if (value.toString().trim() !== "") {
+    
+            try {
+    
+                const profiles = JSON.parse(value.toString());
+    
+                Object.keys(profiles).forEach((profile) => {
+    
+                    if (
+                        profiles[profile] === "" ||
+                        profiles[profile] === null ||
+                        profiles[profile] === undefined
+                    ) {
+    
+                        delete profiles[profile];
+    
+                    }
+    
+                });
+    
+                data.socialProfiles = profiles;
+    
+            } catch {
+    
+                data.socialProfiles = {};
+    
+            }
+    
+        } else {
+    
+            data.socialProfiles = {};
+    
+        }
+    
+        return;
+    
+    }
 
       data[key] = value;
 
