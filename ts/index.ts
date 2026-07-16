@@ -693,64 +693,36 @@ function handleSocialMediaModal() {
 
   saveBtn.addEventListener("click", () => {
 
-    const socialProfiles = {
+    const socialProfiles: Record<string, string> = {};
 
-      linkedinAccount:
-        (
-          document.getElementById("linkedinUrl") as HTMLInputElement
-        ).value.trim(),
+    const addProfile = (key: string, id: string): void => {
 
-      gitlabAccount:
-        (
-          document.getElementById("gitlabUrlModal") as HTMLInputElement
-        ).value.trim(),
+        const value = (
+            document.getElementById(id) as HTMLInputElement
+        ).value.trim();
 
-      twitterAccount:
-        (
-          document.getElementById("twitterUrl") as HTMLInputElement
-        ).value.trim(),
+        if (value !== "") {
 
-      facebookAccount:
-        (
-          document.getElementById("facebookUrl") as HTMLInputElement
-        ).value.trim(),
+            socialProfiles[key] = value;
 
-      instagramAccount:
-        (
-          document.getElementById("instagramUrl") as HTMLInputElement
-        ).value.trim(),
-
-      tiktokAccount:
-        (
-          document.getElementById("tiktokUrl") as HTMLInputElement
-        ).value.trim(),
-
-      youtubeAccount:
-        (
-          document.getElementById("youtubeUrl") as HTMLInputElement
-        ).value.trim(),
-
-      behanceAccount:
-        (
-          document.getElementById("behanceUrl") as HTMLInputElement
-        ).value.trim(),
-
-      dribbbleAccount:
-        (
-          document.getElementById("dribbbleUrl") as HTMLInputElement
-        ).value.trim(),
-
-      other:
-        (
-          document.getElementById("otherSocialUrl") as HTMLInputElement
-        ).value.trim()
+        }
 
     };
+
+    addProfile("linkedinAccount", "linkedinUrl");
+    addProfile("gitlabAccount", "gitlabUrlModal");
+    addProfile("twitterAccount", "twitterUrl");
+    addProfile("facebookAccount", "facebookUrl");
+    addProfile("instagramAccount", "instagramUrl");
+    addProfile("tiktokAccount", "tiktokUrl");
+    addProfile("youtubeAccount", "youtubeUrl");
+    addProfile("behanceAccount", "behanceUrl");
+    addProfile("dribbbleAccount", "dribbbleUrl");
+    addProfile("other", "otherSocialUrl");
 
     hiddenInput.value = JSON.stringify(socialProfiles);
 
     closeModal();
-
   });
 
 }
@@ -781,7 +753,23 @@ function getFormData(form: HTMLFormElement) {
 
         try {
 
-          data.socialProfiles = JSON.parse(value.toString());
+          const profiles = JSON.parse(value.toString());
+
+          Object.keys(profiles).forEach((profile) => {
+
+              if (
+                  profiles[profile] === "" ||
+                  profiles[profile] === null ||
+                  profiles[profile] === undefined
+              ) {
+
+                  delete profiles[profile];
+
+              }
+
+          });
+
+          data.socialProfiles = profiles;
 
         } catch {
 
